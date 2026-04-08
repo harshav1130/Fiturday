@@ -1,4 +1,4 @@
- import { useState, useEffect } from 'react';
+﻿ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart as BarChartIcon, DollarSign, TrendingUp, Users } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -11,7 +11,7 @@ export default function RevenueReports() {
         const fetchStats = async () => {
             try {
                 const token = localStorage.getItem('accessToken');
-                const { data } = await axios.get('http://localhost:5000/api/analytics/owner', {
+                const { data } = await axios.get('/api/analytics/owner', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setStats(data);

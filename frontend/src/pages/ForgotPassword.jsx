@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Mail, Loader2 } from 'lucide-react';
@@ -16,7 +16,7 @@ export default function ForgotPassword() {
         setError('');
         setMessage('');
         try {
-            await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+            await axios.post('/api/auth/forgot-password', { email });
             setMessage('Success! Check your email for the 6-digit OTP code.');
             setTimeout(() => navigate('/reset-password', { state: { email } }), 2000);
         } catch (err) {

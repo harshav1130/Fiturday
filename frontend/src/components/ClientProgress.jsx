@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Users, TrendingUp, Activity, Award, UserCheck, ChevronRight, ArrowLeft, Dumbbell, Trash2 } from 'lucide-react';
 
@@ -26,7 +26,7 @@ export default function ClientProgress() {
 
     const fetchClients = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/trainers/clients', getAuthHeaders());
+            const { data } = await axios.get('/api/trainers/clients', getAuthHeaders());
             setClients(data);
             setLoading(false);
         } catch (error) {
@@ -42,14 +42,14 @@ export default function ClientProgress() {
             const headers = { Authorization: `Bearer ${token}` };
             
             // Fetch Progress Logs
-            const { data: logs } = await axios.get(`http://localhost:5000/api/tracking/client/${clientId}`, { headers });
+            const { data: logs } = await axios.get(`/api/tracking/client/${clientId}`, { headers });
             setClientLogs(logs);
 
             // Fetch Current Plans
-            const { data: wPlan } = await axios.get(`http://localhost:5000/api/tracking/client/${clientId}/workout`, { headers });
+            const { data: wPlan } = await axios.get(`/api/tracking/client/${clientId}/workout`, { headers });
             setClientWorkoutPlan(wPlan);
 
-            const { data: dPlan } = await axios.get(`http://localhost:5000/api/tracking/client/${clientId}/diet`, { headers });
+            const { data: dPlan } = await axios.get(`/api/tracking/client/${clientId}/diet`, { headers });
             setClientDietPlan(dPlan);
 
             setLogsLoading(false);
@@ -75,7 +75,7 @@ export default function ClientProgress() {
             }
 
             const endpoint = planType === 'workout' ? '/api/tracking/workout' : '/api/tracking/diet';
-            await axios.post(`http://localhost:5000${endpoint}`, payload, getAuthHeaders());
+            await axios.post(`${endpoint}`, payload, getAuthHeaders());
             
             alert(`${planType.charAt(0).toUpperCase() + planType.slice(1)} plan assigned successfully!`);
             setShowPlanModal(false);
@@ -99,7 +99,7 @@ export default function ClientProgress() {
         if (!window.confirm(`Are you sure you want to delete this ${type} plan?`)) return;
         try {
             const endpoint = type === 'workout' ? `/api/tracking/workout/${planId}` : `/api/tracking/diet/${planId}`;
-            await axios.delete(`http://localhost:5000${endpoint}`, getAuthHeaders());
+            await axios.delete(`${endpoint}`, getAuthHeaders());
             alert(`${type.charAt(0).toUpperCase() + type.slice(1)} plan deleted!`);
             fetchClientLogs(selectedClient._id);
         } catch (error) {
@@ -141,7 +141,7 @@ export default function ClientProgress() {
                         <div className="relative">
                             {selectedClient.avatar ? (
                                 <img 
-                                    src={`http://localhost:5000${selectedClient.avatar}`} 
+                                    src={`${selectedClient.avatar}`} 
                                     alt={selectedClient.name} 
                                     className="w-16 h-16 rounded-full border-2 border-green-500/50 object-cover" 
                                     onError={(e) => {
@@ -294,7 +294,7 @@ export default function ClientProgress() {
                                     <div className="relative">
                                         {client.avatar ? (
                                             <img 
-                                                src={`http://localhost:5000${client.avatar}`} 
+                                                src={`${client.avatar}`} 
                                                 alt={client.name} 
                                                 className="w-12 h-12 rounded-full border border-gray-700 object-cover" 
                                                 onError={(e) => {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+﻿import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { MapPin, DollarSign, Activity, Image as ImageIcon, PlusCircle, CheckCircle, Calendar, Hash, TrendingUp, X } from 'lucide-react';
@@ -34,7 +34,7 @@ export default function GymOverview() {
 
     const fetchMyGym = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/gyms');
+            const { data } = await axios.get('/api/gyms');
             // Find the gym owned by the current user
             const ownedGym = data.find(g => 
                 g.ownerId?._id?.toString() === user._id?.toString() || 
@@ -58,7 +58,7 @@ export default function GymOverview() {
 
             // Fetch owner analytics
             const token = user?.token || localStorage.getItem('accessToken');
-            const statsRes = await axios.get('http://localhost:5000/api/analytics/owner', {
+            const statsRes = await axios.get('/api/analytics/owner', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setOwnerStats(statsRes.data);
@@ -132,10 +132,10 @@ export default function GymOverview() {
 
             let res;
             if (isEditing) {
-                res = await axios.put(`http://localhost:5000/api/gyms/${myGym._id}`, formData, config);
+                res = await axios.put(`/api/gyms/${myGym._id}`, formData, config);
                 setSuccess('Gym Profile updated successfully!');
             } else {
-                res = await axios.post('http://localhost:5000/api/gyms', formData, config);
+                res = await axios.post('/api/gyms', formData, config);
                 setSuccess('Gym Profile created successfully!');
             }
 
@@ -162,7 +162,7 @@ export default function GymOverview() {
                 headers: { Authorization: `Bearer ${token}` }
             };
 
-            const res = await axios.put(`http://localhost:5000/api/gyms/${myGym._id}`, formData, config);
+            const res = await axios.put(`/api/gyms/${myGym._id}`, formData, config);
             setMyGym(res.data);
             setSuccess('Photo deleted successfully!');
         } catch (err) {
@@ -350,7 +350,7 @@ export default function GymOverview() {
                             {myGym.photos.map((url, i) => (
                                 <div key={i} className="relative group flex-shrink-0">
                                     <img 
-                                        src={`http://localhost:5000${url}`} 
+                                        src={`${url}`} 
                                         alt="Gym Photo" 
                                         onClick={() => { setLightboxIndex(i); setShowLightbox(true); }}
                                         className="h-48 w-72 object-cover rounded-xl border border-gray-700 shadow-md cursor-pointer hover:opacity-90 transition-opacity" 

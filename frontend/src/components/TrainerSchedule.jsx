@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { Calendar as CalendarIcon, Clock, Plus, Trash2, TrendingUp, DollarSign, MessageSquare } from 'lucide-react';
@@ -30,11 +30,11 @@ export default function TrainerSchedule({ initialChat, onChatOpened }) {
     const fetchSlots = async () => {
         try {
             // Fetch bookings to match with active subscriptions for chat
-            const bookingsRes = await axios.get('http://localhost:5000/api/bookings/trainer');
+            const bookingsRes = await axios.get('/api/bookings/trainer');
             setBookings(bookingsRes.data);
 
             // Get KPI stats
-            const statsRes = await axios.get('http://localhost:5000/api/analytics/trainer');
+            const statsRes = await axios.get('/api/analytics/trainer');
             setTrainerStats(statsRes.data);
 
             setLoading(false);
@@ -116,7 +116,7 @@ export default function TrainerSchedule({ initialChat, onChatOpened }) {
                                         <div className="flex justify-between items-start">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 font-bold border border-green-500/20">
-                                                    {booking.userId?.avatar ? <img src={`http://localhost:5000${booking.userId.avatar}`} className="w-full h-full rounded-full object-cover" /> : (booking.userId?.name?.charAt(0).toUpperCase() || 'U')}
+                                                    {booking.userId?.avatar ? <img src={`${booking.userId.avatar}`} className="w-full h-full rounded-full object-cover" /> : (booking.userId?.name?.charAt(0).toUpperCase() || 'U')}
                                                 </div>
                                                 <div>
                                                     <p className="text-sm font-black text-white">{booking.userId?.name || 'Client'}</p>

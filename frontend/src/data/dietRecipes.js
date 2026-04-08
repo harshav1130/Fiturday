@@ -1,4 +1,4 @@
-export const dietRecipes = [
+﻿export const dietRecipes = [
     // --- VEG DIET PLANS (25 RECIPES) ---
     {
         id: 'v1',

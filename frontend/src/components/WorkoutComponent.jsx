@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PlayCircle, Target, AlertTriangle, CheckCircle2, Search, Dumbbell, Award, Clock, Star, Eye } from 'lucide-react';
 import { workouts } from '../data/workoutData';
@@ -16,7 +16,7 @@ export default function WorkoutComponent() {
         const fetchAssignedPlan = async () => {
             try {
                 const token = localStorage.getItem('accessToken');
-                const { data } = await axios.get('http://localhost:5000/api/tracking/workout', {
+                const { data } = await axios.get('/api/tracking/workout', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setAssignedPlan(data);

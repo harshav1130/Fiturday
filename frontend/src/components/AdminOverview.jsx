@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Users, TrendingUp, Activity, DollarSign } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -10,7 +10,7 @@ export default function AdminOverview() {
     useEffect(() => {
         const fetchAdminStats = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/analytics/admin?t=${Date.now()}`, { withCredentials: true });
+                const { data } = await axios.get(`/api/analytics/admin?t=${Date.now()}`, { withCredentials: true });
                 setAdminData(data);
                 setLoading(false);
             } catch (error) {

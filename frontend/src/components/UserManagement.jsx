@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Search, MoreVertical, Edit, Trash2 } from 'lucide-react';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ export default function UserManagement() {
         const fetchUsers = async () => {
             try {
                 const token = localStorage.getItem('accessToken');
-                const { data } = await axios.get('http://localhost:5000/api/admin/users', {
+                const { data } = await axios.get('/api/admin/users', {
                     headers: { Authorization: `Bearer ${token}` },
                     withCredentials: true
                 });
@@ -32,7 +32,7 @@ export default function UserManagement() {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
         try {
             const token = localStorage.getItem('accessToken');
-            await axios.delete(`http://localhost:5000/api/admin/users/${id}`, {
+            await axios.delete(`/api/admin/users/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true
             });
@@ -47,7 +47,7 @@ export default function UserManagement() {
         const nextStatus = user.status === 'Active' ? 'Suspended' : user.status === 'Suspended' ? 'Pending' : 'Active';
         try {
             const token = localStorage.getItem('accessToken');
-            await axios.put(`http://localhost:5000/api/admin/users/${user._id}`, { status: nextStatus }, {
+            await axios.put(`/api/admin/users/${user._id}`, { status: nextStatus }, {
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true
             });

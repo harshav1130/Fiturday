@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -72,7 +72,7 @@ export default function GymDiscovery() {
             const config = { headers: { Authorization: `Bearer ${token}` } };
             
             // Fetch bookings first to show status
-            const { data: bookings } = await axios.get('http://localhost:5000/api/bookings/my-bookings', config);
+            const { data: bookings } = await axios.get('/api/bookings/my-bookings', config);
             const now = new Date();
             setMyBookings(bookings.filter(b => 
                 b.status === 'Confirmed' && 
@@ -91,7 +91,7 @@ export default function GymDiscovery() {
             if (filters.rating) params.append('rating', filters.rating);
             if (filters.amenities) params.append('amenities', filters.amenities);
 
-            const { data } = await axios.get(`http://localhost:5000/api/gyms?${params.toString()}`, config);
+            const { data } = await axios.get(`/api/gyms?${params.toString()}`, config);
             setGyms(data);
         } catch (err) {
             console.error('Failed to fetch gyms', err);
@@ -287,7 +287,7 @@ export default function GymDiscovery() {
                         >
                             <div className="h-48 mb-4 rounded-xl overflow-hidden bg-gray-900 relative flex-shrink-0">
                                 {gym.photos && gym.photos.length > 0 ? (
-                                    <img src={`http://localhost:5000${gym.photos[0]}`} alt={gym.name} className="w-full h-full object-cover" />
+                                    <img src={`${gym.photos[0]}`} alt={gym.name} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex flex-col items-center justify-center text-gray-600">
                                         <ImageIcon size={32} className="mb-2 opacity-50" />

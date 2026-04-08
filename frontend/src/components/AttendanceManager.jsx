@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { BarChart as BarChartIcon, CheckCircle2, UserCheck, Search, Info, Camera } from 'lucide-react';
@@ -20,7 +20,7 @@ export default function AttendanceManager() {
             try {
                 const token = user?.token || localStorage.getItem('accessToken');
                 const config = { headers: { Authorization: `Bearer ${token}` } };
-                const { data } = await axios.get('http://localhost:5000/api/gyms', config);
+                const { data } = await axios.get('/api/gyms', config);
                 // Find gym owned by this user
                 const ownedGym = data.find(g => g.ownerId === user._id || g.ownerId._id === user._id);
                 if (ownedGym) {
@@ -41,7 +41,7 @@ export default function AttendanceManager() {
         try {
             const token = user?.token || localStorage.getItem('accessToken');
             const config = configOverride || { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.get(`http://localhost:5000/api/attendance/gym/${id}`, config);
+            const { data } = await axios.get(`/api/attendance/gym/${id}`, config);
 
             // Format dates for charts
             const formattedTrends = data.weeklyTrend.map(t => {
@@ -64,7 +64,7 @@ export default function AttendanceManager() {
     const handleMarkAttendance = async (targetId, statusType) => {
         try {
             const token = user?.token || localStorage.getItem('accessToken');
-            await axios.post('http://localhost:5000/api/attendance/gym/mark', {
+            await axios.post('/api/attendance/gym/mark', {
                 gymId,
                 targetUserId: targetId,
                 status: statusType

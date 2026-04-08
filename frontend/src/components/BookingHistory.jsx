@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, Clock, MapPin, XCircle, CheckCircle2, AlertCircle, Mail, MessageSquare, Trash2, Dumbbell, Activity, Award, Star, Utensils } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
@@ -27,7 +27,7 @@ export default function BookingHistory({ initialChat, onChatOpened }) {
         try {
             const token = localStorage.getItem('accessToken');
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.get('http://localhost:5000/api/bookings/my-bookings', config);
+            const { data } = await axios.get('/api/bookings/my-bookings', config);
             setBookings(data);
             setLoading(false);
         } catch (error) {
@@ -41,10 +41,10 @@ export default function BookingHistory({ initialChat, onChatOpened }) {
             const token = localStorage.getItem('accessToken');
             const config = { headers: { Authorization: `Bearer ${token}` } };
             
-            const { data: wPlan } = await axios.get('http://localhost:5000/api/tracking/workout', config);
+            const { data: wPlan } = await axios.get('/api/tracking/workout', config);
             setAssignedWorkout(wPlan);
 
-            const { data: dPlan } = await axios.get('http://localhost:5000/api/tracking/diet', config);
+            const { data: dPlan } = await axios.get('/api/tracking/diet', config);
             setAssignedDiet(dPlan);
         } catch (error) {
             console.error('Failed to fetch assigned plans', error);
@@ -63,7 +63,7 @@ export default function BookingHistory({ initialChat, onChatOpened }) {
         try {
             const token = localStorage.getItem('accessToken');
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            await axios.put(`http://localhost:5000/api/bookings/${id}/cancel`, {}, config);
+            await axios.put(`/api/bookings/${id}/cancel`, {}, config);
             fetchBookings();
         } catch (error) {
             alert(error.response?.data?.message || 'Error cancelling booking');
@@ -75,7 +75,7 @@ export default function BookingHistory({ initialChat, onChatOpened }) {
         try {
             const token = localStorage.getItem('accessToken');
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            await axios.delete(`http://localhost:5000/api/bookings/${bookingId}`, config);
+            await axios.delete(`/api/bookings/${bookingId}`, config);
             fetchBookings();
         } catch (error) {
             console.error('Deletion failed', error);

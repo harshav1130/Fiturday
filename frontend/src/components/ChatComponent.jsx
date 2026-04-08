@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+﻿import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { Send, X, MessageSquare, Loader2, User, Paperclip, Mic, Square, Image as ImageIcon, Film, Play, Pause, RefreshCw } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 
-const socket = io('http://localhost:5000');
+const socket = io('');
 
 export default function ChatComponent({ bookingId, receiverId, receiverName, isOpen, onClose }) {
     const { user } = useContext(AuthContext);
@@ -57,7 +57,7 @@ export default function ChatComponent({ bookingId, receiverId, receiverName, isO
     const fetchChatHistory = async () => {
         try {
             const token = localStorage.getItem('accessToken');
-            const { data } = await axios.get(`http://localhost:5000/api/chat/${bookingId}`, {
+            const { data } = await axios.get(`/api/chat/${bookingId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setMessages(data.messages || []);
@@ -250,7 +250,7 @@ export default function ChatComponent({ bookingId, receiverId, receiverName, isO
         const token = localStorage.getItem('accessToken');
         try {
             setUploading(true);
-            const { data } = await axios.post('http://localhost:5000/api/chat/upload', formData, {
+            const { data } = await axios.post('/api/chat/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` }
             });
             setUploading(false);
@@ -272,7 +272,7 @@ export default function ChatComponent({ bookingId, receiverId, receiverName, isO
                 uploadedUrl = await uploadFile(mediaFile);
             }
 
-            const { data } = await axios.post('http://localhost:5000/api/chat', {
+            const { data } = await axios.post('/api/chat', {
                 bookingId,
                 receiverId,
                 content: newMessage.trim() || (mediaType === 'voice' ? 'Voice Message' : `Sent an ${mediaType}`),
@@ -358,7 +358,7 @@ export default function ChatComponent({ bookingId, receiverId, receiverName, isO
                                 <div key={idx} className={`flex gap-3 ${isMe ? 'flex-row-reverse' : 'flex-row'} items-end group/msg animate-fade-in`}>
                                     <div className={`w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center text-xs font-black transition-transform group-hover/msg:scale-110 ${isMe ? 'bg-green-500 text-black' : 'bg-gray-800 text-gray-400 border border-gray-700'}`}>
                                         {msg.sender?.avatar 
-                                            ? <img src={`http://localhost:5000${msg.sender.avatar}`} alt="" className="w-full h-full object-cover rounded-xl" />
+                                            ? <img src={`${msg.sender.avatar}`} alt="" className="w-full h-full object-cover rounded-xl" />
                                             : (msg.sender?.name?.charAt(0).toUpperCase() || '?')
                                         }
                                     </div>

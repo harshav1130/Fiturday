@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DollarSign, Wallet, ArrowUpRight } from 'lucide-react';
 
@@ -9,7 +9,7 @@ export default function TrainerEarnings() {
     const fetchEarnings = async () => {
         try {
             const token = localStorage.getItem('accessToken');
-            const { data } = await axios.get('http://localhost:5000/api/trainers/earnings', {
+            const { data } = await axios.get('/api/trainers/earnings', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setEarningsData(data);

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function ImageModal({ isOpen, onClose, images, currentIndex, setCurrentIndex }) {
@@ -45,7 +45,7 @@ export default function ImageModal({ isOpen, onClose, images, currentIndex, setC
 
             <div className="relative max-w-5xl max-h-[85vh] flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl border border-white/10">
                 <img 
-                    src={images[currentIndex].startsWith('http') ? images[currentIndex] : `http://localhost:5000${images[currentIndex]}`} 
+                    src={images[currentIndex].startsWith('http') ? images[currentIndex] : `${images[currentIndex]}`} 
                     alt="Gallery item" 
                     className="max-w-full max-h-[85vh] object-contain"
                     onClick={(e) => e.stopPropagation()}

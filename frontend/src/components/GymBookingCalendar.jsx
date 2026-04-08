@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { ChevronLeft, Calendar as CalendarIcon, Clock, CheckCircle2, Lock } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -22,8 +22,8 @@ export default function GymBookingCalendar({ gym, onBack }) {
         try {
             const token = user?.token || localStorage.getItem('accessToken');
             const endpoint = gym.isTrainer 
-                ? `http://localhost:5000/api/slots/trainer/${gym._id}?date=${selectedDate}`
-                : `http://localhost:5000/api/slots/gym/${gym._id}?date=${selectedDate}`;
+                ? `/api/slots/trainer/${gym._id}?date=${selectedDate}`
+                : `/api/slots/gym/${gym._id}?date=${selectedDate}`;
                 
             const { data } = await axios.get(endpoint, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -42,7 +42,7 @@ export default function GymBookingCalendar({ gym, onBack }) {
 
         try {
             // 1. Create Pending Booking (Locks Slot)
-            const { data: booking } = await axios.post('http://localhost:5000/api/bookings', {
+            const { data: booking } = await axios.post('/api/bookings', {
                 slotId: slot._id,
                 type: gym.isTrainer ? 'Trainer' : 'Gym',
                 planType: 'Session'
@@ -51,7 +51,7 @@ export default function GymBookingCalendar({ gym, onBack }) {
             const amount = 100; // Fixed per-session cost for demo
 
             // 2. Create Order (mock or real)
-            const { data: order } = await axios.post('http://localhost:5000/api/payments/orders', {
+            const { data: order } = await axios.post('/api/payments/orders', {
                 amount: amount,
                 bookingId: booking._id
             }, config);

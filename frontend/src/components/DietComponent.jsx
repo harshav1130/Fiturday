@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { dietRecipes } from '../data/dietRecipes';
 import { Search, Flame, Beef, Leaf, Clock, ChefHat, Award, Star, Utensils } from 'lucide-react';
@@ -15,7 +15,7 @@ export default function DietComponent() {
         const fetchAssignedPlan = async () => {
             try {
                 const token = localStorage.getItem('accessToken');
-                const { data } = await axios.get('http://localhost:5000/api/tracking/diet', {
+                const { data } = await axios.get('/api/tracking/diet', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setAssignedPlan(data);

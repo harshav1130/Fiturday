@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+﻿import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, Dumbbell, Calendar, Salad, LogOut, Settings, BarChart, MapPin, Activity, CreditCard, Menu, X as CloseIcon, Bell } from 'lucide-react';
@@ -49,7 +49,7 @@ export default function Dashboard() {
             fetchBookings();
 
             // Socket Global Listener
-            const socket = io('http://localhost:5000');
+            const socket = io('');
             socket.emit('join_user', user._id);
 
             socket.on('new_notification', (data) => {
@@ -68,7 +68,7 @@ export default function Dashboard() {
 
     const fetchBookings = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/bookings/my-bookings');
+            const { data } = await axios.get('/api/bookings/my-bookings');
             // Find most recent confirmed gym booking
             const confirmedGymBooking = data.find(b => b.status === 'Confirmed' && b.type === 'Gym');
             setActiveBooking(confirmedGymBooking);
@@ -189,7 +189,7 @@ export default function Dashboard() {
                         >
                             {user?.avatar ? (
                                 <img 
-                                    src={user.avatar.startsWith('http') ? user.avatar : `http://localhost:5000${user.avatar}`} 
+                                    src={user.avatar.startsWith('http') ? user.avatar : `${user.avatar}`} 
                                     className="w-full h-full rounded-full object-cover" 
                                     alt="avatar" 
                                 />

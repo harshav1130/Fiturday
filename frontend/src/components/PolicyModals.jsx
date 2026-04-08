@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function PolicyModal({ isOpen, onClose, title, children }) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
@@ -24,7 +24,7 @@ export default function ProgressTracker() {
     const fetchLogs = async () => {
         try {
             const token = localStorage.getItem('accessToken');
-            const { data } = await axios.get('http://localhost:5000/api/tracking/progress', {
+            const { data } = await axios.get('/api/tracking/progress', {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -64,7 +64,7 @@ export default function ProgressTracker() {
             if (Object.keys(payload).length === 0) return alert('Please enter at least one metric to log.');
 
             const token = localStorage.getItem('accessToken');
-            await axios.post('http://localhost:5000/api/tracking/progress', payload, {
+            await axios.post('/api/tracking/progress', payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Dumbbell, Calendar, Users, Salad, ChevronRight, Activity, ShieldCheck, Zap } from 'lucide-react';

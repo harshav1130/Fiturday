@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+﻿import React, { useContext, useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { AuthContext } from '../context/AuthContext';
 import { QrCode, ShieldCheck, Activity } from 'lucide-react';
@@ -12,7 +12,7 @@ export default function UserQRCard({ activeBooking }) {
         if (!user) return;
         const fetchAttendance = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/api/attendance/monthly', { withCredentials: true });
+                const { data } = await axios.get('/api/attendance/monthly', { withCredentials: true });
                 setAttendanceStats(data);
             } catch (error) {
                 console.error('Failed to fetch attendance stats', error);

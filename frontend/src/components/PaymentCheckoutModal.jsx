@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
     X,
@@ -46,7 +46,7 @@ export default function PaymentCheckoutModal({ isOpen, onClose, onSuccess, gym, 
                 throw new Error('Simulated bank decline or network timeout.');
             }
 
-            const verifyRes = await axios.post('http://localhost:5000/api/payments/verify', {
+            const verifyRes = await axios.post('/api/payments/verify', {
                 razorpay_order_id: order.id,
                 razorpay_payment_id: 'pay_mock_' + Date.now(),
                 razorpay_signature: 'mock_signature'

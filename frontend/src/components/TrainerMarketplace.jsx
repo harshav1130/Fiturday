@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Search, Star, Award, ChevronRight, ChevronLeft, X, Calendar, Loader2 } from 'lucide-react';
 import ReviewsWidget from './ReviewsWidget';
@@ -24,7 +24,7 @@ export default function TrainerMarketplace() {
 
     const fetchTrainers = async () => {
         try {
-            let url = 'http://localhost:5000/api/trainers';
+            let url = '/api/trainers';
             const params = new URLSearchParams();
             if (searchQuery) params.append('search', searchQuery);
             if (selectedExpertise && selectedExpertise !== 'All') params.append('expertise', selectedExpertise);
@@ -43,7 +43,7 @@ export default function TrainerMarketplace() {
     const fetchMyBookings = async () => {
         try {
             const token = localStorage.getItem('accessToken');
-            const { data } = await axios.get('http://localhost:5000/api/bookings/my-bookings', {
+            const { data } = await axios.get('/api/bookings/my-bookings', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const now = new Date();
@@ -76,13 +76,13 @@ export default function TrainerMarketplace() {
 
             const monthlyPrice = bookingTrainer.monthlyPrice;
 
-            const { data: booking } = await axios.post('http://localhost:5000/api/bookings', {
+            const { data: booking } = await axios.post('/api/bookings', {
                 trainerId: bookingTrainer._id,
                 type: 'Trainer',
                 planType: 'Monthly'
             }, config);
 
-            const { data: order } = await axios.post('http://localhost:5000/api/payments/orders', {
+            const { data: order } = await axios.post('/api/payments/orders', {
                 amount: monthlyPrice,
                 bookingId: booking._id
             }, config);
@@ -117,7 +117,7 @@ export default function TrainerMarketplace() {
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-900 border-2 border-green-500">
                                     {selectedTrainer.userId?.avatar
-                                        ? <img src={`http://localhost:5000${selectedTrainer.userId.avatar}`} alt="Trainer" className="w-full h-full object-cover" />
+                                        ? <img src={`${selectedTrainer.userId.avatar}`} alt="Trainer" className="w-full h-full object-cover" />
                                         : <div className="w-full h-full flex items-center justify-center text-green-500 font-black text-2xl uppercase">{selectedTrainer.userId?.name?.charAt(0) || 'T'}</div>
                                     }
                                 </div>
@@ -274,7 +274,7 @@ export default function TrainerMarketplace() {
                         <div className="flex items-center gap-4 mb-4 relative z-10">
                             <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-900 border-2 border-green-500 group-hover:shadow-[0_0_15px_rgba(34,197,94,0.4)] transition-shadow shrink-0">
                                 {trainer.userId?.avatar
-                                    ? <img src={`http://localhost:5000${trainer.userId.avatar}`} alt="Trainer" className="w-full h-full object-cover" />
+                                    ? <img src={`${trainer.userId.avatar}`} alt="Trainer" className="w-full h-full object-cover" />
                                     : <div className="w-full h-full flex items-center justify-center text-green-500 font-bold text-xl uppercase">{trainer.userId?.name?.charAt(0) || 'T'}</div>
                                 }
                             </div>

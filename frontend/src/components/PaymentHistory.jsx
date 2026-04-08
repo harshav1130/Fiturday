@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { CreditCard, CheckCircle2, Clock, XCircle, AlertCircle, RefreshCw, MapPin } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
@@ -15,7 +15,7 @@ export default function PaymentHistory({ onRebook }) {
         setLoading(true);
         try {
             const token = user?.token || localStorage.getItem('accessToken');
-            const { data } = await axios.get('http://localhost:5000/api/payments/my-payments', {
+            const { data } = await axios.get('/api/payments/my-payments', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPayments(data);
@@ -24,7 +24,7 @@ export default function PaymentHistory({ onRebook }) {
             // If the endpoint doesn't exist yet, try bookings with payment data
             try {
                 const token = user?.token || localStorage.getItem('accessToken');
-                const { data: bookings } = await axios.get('http://localhost:5000/api/bookings/my-bookings', {
+                const { data: bookings } = await axios.get('/api/bookings/my-bookings', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 // Map bookings that have a paymentId to a payment-like structure

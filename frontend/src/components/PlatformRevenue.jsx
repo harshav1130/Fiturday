@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DollarSign, Download, ArrowUpRight, ArrowDownRight, Loader } from 'lucide-react';
 
@@ -11,7 +11,7 @@ export default function PlatformRevenue() {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/payments/all?t=${Date.now()}`, { withCredentials: true });
+                const { data } = await axios.get(`/api/payments/all?t=${Date.now()}`, { withCredentials: true });
                 setTransactions(data);
                 setLoading(false);
             } catch (err) {

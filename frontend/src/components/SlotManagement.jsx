@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+﻿import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { Calendar as CalendarIcon, Clock, Users, PlusCircle, Trash2 } from 'lucide-react';
@@ -19,7 +19,7 @@ export default function SlotManagement() {
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('accessToken');
-            const { data: gyms } = await axios.get('http://localhost:5000/api/gyms');
+            const { data: gyms } = await axios.get('/api/gyms');
             // Safely compare user IDs regardless of being a populated object vs string
             const ownedGym = gyms.find(g => 
                 g.ownerId?._id?.toString() === user._id?.toString() || 
@@ -29,7 +29,7 @@ export default function SlotManagement() {
             if (ownedGym) {
                 setMyGym(ownedGym);
                 // Fetch slots for this gym
-                const { data: slotsData } = await axios.get(`http://localhost:5000/api/slots/gym/${ownedGym._id}`);
+                const { data: slotsData } = await axios.get(`/api/slots/gym/${ownedGym._id}`);
                 setSlots(slotsData);
             }
             setLoading(false);
@@ -48,7 +48,7 @@ export default function SlotManagement() {
         setError('');
         try {
             const token = localStorage.getItem('accessToken');
-            const { data } = await axios.post('http://localhost:5000/api/slots', {
+            const { data } = await axios.post('/api/slots', {
                 gymId: myGym._id,
                 date,
                 startTime,

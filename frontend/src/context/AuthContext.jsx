@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+﻿import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
                     try {
                         const refresh = localStorage.getItem('refreshToken');
                         if (refresh) {
-                            const res = await axios.post('http://localhost:5000/api/auth/refresh', { token: refresh });
+                            const res = await axios.post('/api/auth/refresh', { token: refresh });
                             const { accessToken, refreshToken } = res.data;
                             
                             localStorage.setItem('accessToken', accessToken);
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
             const token = localStorage.getItem('accessToken');
             if (token) {
                 try {
-                    const res = await axios.get('http://localhost:5000/api/auth/profile');
+                    const res = await axios.get('/api/auth/profile');
                     setUser(res.data);
                 } catch (err) {
                     console.error('Auth sync error', err);
@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+        const res = await axios.post('/api/auth/login', { email, password });
         if (res.data.require2FA) {
             return res.data;
         }
@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const verify2FA = async (email, otp) => {
-        const res = await axios.post('http://localhost:5000/api/auth/verify-2fa', { email, otp });
+        const res = await axios.post('/api/auth/verify-2fa', { email, otp });
         localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('refreshToken', res.data.refreshToken);
         setUser(res.data);
@@ -129,12 +129,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (name, email, password, role) => {
-        const res = await axios.post('http://localhost:5000/api/auth/register', { name, email, password, role });
+        const res = await axios.post('/api/auth/register', { name, email, password, role });
         return res.data;
     };
 
     const verifyRegistration = async (email, otp) => {
-        const res = await axios.post('http://localhost:5000/api/auth/verify-registration', { email, otp });
+        const res = await axios.post('/api/auth/verify-registration', { email, otp });
         localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('refreshToken', res.data.refreshToken);
         setUser(res.data);
@@ -143,7 +143,7 @@ export const AuthProvider = ({ children }) => {
 
     const updateProfile = async (formData) => {
         const token = localStorage.getItem('accessToken');
-        const res = await axios.put('http://localhost:5000/api/auth/profile', formData, {
+        const res = await axios.put('/api/auth/profile', formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -157,7 +157,7 @@ export const AuthProvider = ({ children }) => {
         const { email, name, picture } = payload;
 
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/google', { token: tokenId, email, name, avatar: picture });
+            const res = await axios.post('/api/auth/google', { token: tokenId, email, name, avatar: picture });
             localStorage.setItem('accessToken', res.data.accessToken);
             localStorage.setItem('refreshToken', res.data.refreshToken);
             setUser(res.data);
@@ -168,7 +168,7 @@ export const AuthProvider = ({ children }) => {
 
     const deleteAccount = async () => {
         try {
-            await axios.delete('http://localhost:5000/api/auth/profile');
+            await axios.delete('/api/auth/profile');
             logout();
         } catch (err) {
             throw err;

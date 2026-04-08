@@ -1,4 +1,4 @@
-import { Shield, Bell, Key, User, Trash2, CreditCard, Plus, Camera } from 'lucide-react';
+﻿import { Shield, Bell, Key, User, Trash2, CreditCard, Plus, Camera } from 'lucide-react';
 import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
@@ -10,7 +10,7 @@ export default function SettingsComponent() {
     const [isSaving, setIsSaving] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [avatarFile, setAvatarFile] = useState(null);
-    const [avatarPreview, setAvatarPreview] = useState(user?.avatar ? (user.avatar.startsWith('http') ? user.avatar : `http://localhost:5000${user.avatar}`) : null);
+    const [avatarPreview, setAvatarPreview] = useState(user?.avatar ? (user.avatar.startsWith('http') ? user.avatar : `${user.avatar}`) : null);
     
     // Trainer specific state
     const [bio, setBio] = useState('');
@@ -29,7 +29,7 @@ export default function SettingsComponent() {
             const fetchTrainerProfile = async () => {
                 try {
                     const token = localStorage.getItem('accessToken');
-                    const { data } = await axios.get('http://localhost:5000/api/trainers/profile', {
+                    const { data } = await axios.get('/api/trainers/profile', {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     setBio(data.bio || '');
@@ -49,7 +49,7 @@ export default function SettingsComponent() {
             setLoadingMethods(true);
             try {
                 const token = localStorage.getItem('accessToken');
-                const { data } = await axios.get('http://localhost:5000/api/payments/methods', {
+                const { data } = await axios.get('/api/payments/methods', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPaymentMethods(data);
@@ -96,11 +96,11 @@ export default function SettingsComponent() {
                 };
                 
                 if (trainerProfileExists) {
-                    await axios.put('http://localhost:5000/api/trainers/profile', trainerData, {
+                    await axios.put('/api/trainers/profile', trainerData, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                 } else {
-                    await axios.post('http://localhost:5000/api/trainers', trainerData, {
+                    await axios.post('/api/trainers', trainerData, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     setTrainerProfileExists(true);
@@ -120,7 +120,7 @@ export default function SettingsComponent() {
     const handleDeletePaymentMethod = async (id) => {
         try {
             const token = localStorage.getItem('accessToken');
-            await axios.delete(`http://localhost:5000/api/payments/methods/${id}`, {
+            await axios.delete(`/api/payments/methods/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPaymentMethods(paymentMethods.filter(m => m._id !== id));
@@ -132,7 +132,7 @@ export default function SettingsComponent() {
     const handleAddRealCard = async (cardData) => {
         try {
             const token = localStorage.getItem('accessToken');
-            const { data } = await axios.post('http://localhost:5000/api/payments/methods', cardData, {
+            const { data } = await axios.post('/api/payments/methods', cardData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPaymentMethods([data, ...paymentMethods]);
