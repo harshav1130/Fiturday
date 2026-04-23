@@ -102,8 +102,7 @@ exports.uploadChatFile = async (req, res) => {
             return res.status(400).json({ message: 'No file uploaded' });
         }
 
-        const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
-        const fileUrl = `${backendUrl}/uploads/${req.file.filename}`;
+        const fileUrl = `/api/uploads/${req.file.filename}`;
 
         res.status(200).json({ 
             url: fileUrl,

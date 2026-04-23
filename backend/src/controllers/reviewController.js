@@ -78,7 +78,7 @@ const addReview = async (req, res) => {
         }
 
         // Handle Images
-        const images = req.files ? req.files.map(file => `/uploads/reviews/${file.filename}`) : [];
+        const images = req.files ? req.files.map(file => `/api/uploads/reviews/${file.filename}`) : [];
 
         const review = await Review.create({
             userId: req.user._id,

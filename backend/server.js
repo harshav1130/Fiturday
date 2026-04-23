@@ -12,6 +12,7 @@ app.use(cors({ origin: true, credentials: true })); // origin: true reflects the
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Logging Middleware
 const fs = require('fs');

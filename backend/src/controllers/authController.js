@@ -192,7 +192,7 @@ const updateProfile = async (req, res) => {
                 user.password = await bcrypt.hash(req.body.password, salt);
             }
             if (req.file) {
-                user.avatar = `/${req.file.path.replace(/\\/g, '/')}`;
+                user.avatar = `/api/${req.file.path.replace(/\\/g, '/')}`;
             }
 
             const updatedUser = await user.save();
