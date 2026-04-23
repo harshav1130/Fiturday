@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -156,12 +156,6 @@ export default function GymDiscovery() {
                         className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg pl-10 pr-4 py-2 text-sm focus:border-green-500 focus:outline-none"
                     />
                 </div>
-
-                {locationError && !location.lng && (
-                    <div className="text-xs text-yellow-500 mt-2 flex items-center gap-1">
-                        <MapPin size={12} /> Location services disabled. Showing all facilities.
-                    </div>
-                )}
 
                 {/* Filters Collapse Area */}
                 {showFilters && (
