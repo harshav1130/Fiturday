@@ -6,7 +6,7 @@ const createGym = async (req, res) => {
 
         let photos = [];
         if (req.files) {
-            photos = req.files.map(file => `/api/${file.path.replace(/\\/g, '/')}`);
+            photos = req.files.map(file => `/api/uploads/${file.filename}`);
         }
 
         const gym = await Gym.create({
@@ -107,7 +107,7 @@ const updateGym = async (req, res) => {
         }
 
         if (req.files && req.files.length > 0) {
-            const uploadedPhotos = req.files.map(file => `/api/${file.path.replace(/\\/g, '/')}`);
+            const uploadedPhotos = req.files.map(file => `/api/uploads/${file.filename}`);
             newPhotos = [...newPhotos, ...uploadedPhotos];
         }
 
