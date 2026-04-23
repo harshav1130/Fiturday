@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { ChevronLeft, Star, MapPin, Clock, ImageIcon, Activity, X } from 'lucide-react';
 import PaymentCheckoutModal from './PaymentCheckoutModal';
@@ -61,7 +61,7 @@ export default function GymDetail({ gym, onBack, isActive }) {
                                     {/* Main Photo */}
                                     <div className="md:col-span-2 h-full">
                                         <img 
-                                            src={`${gym.photos[0]}`} 
+                                            src={gym.photos[0].startsWith('/uploads/') ? `/api${gym.photos[0]}` : gym.photos[0]} 
                                             className="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity" 
                                             alt="Gym Main" 
                                             onClick={() => { setLightboxIndex(0); setShowLightbox(true); }}
@@ -74,7 +74,7 @@ export default function GymDetail({ gym, onBack, isActive }) {
                                             <div key={idx} className="h-full relative overflow-hidden bg-gray-800">
                                                 {gym.photos[idx] ? (
                                                     <img 
-                                                        src={`${gym.photos[idx]}`} 
+                                                        src={gym.photos[idx].startsWith('/uploads/') ? `/api${gym.photos[idx]}` : gym.photos[idx]} 
                                                         className="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity" 
                                                         alt={`Gym ${idx + 1}`} 
                                                         onClick={() => { setLightboxIndex(idx); setShowLightbox(true); }}

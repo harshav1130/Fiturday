@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { MapPin, DollarSign, Activity, Image as ImageIcon, PlusCircle, CheckCircle, Calendar, Hash, TrendingUp, X } from 'lucide-react';
@@ -350,7 +350,7 @@ export default function GymOverview() {
                             {myGym.photos.map((url, i) => (
                                 <div key={i} className="relative group flex-shrink-0">
                                     <img 
-                                        src={`${url}`} 
+                                        src={url.startsWith('/uploads/') ? `/api${url}` : url} 
                                         alt="Gym Photo" 
                                         onClick={() => { setLightboxIndex(i); setShowLightbox(true); }}
                                         className="h-48 w-72 object-cover rounded-xl border border-gray-700 shadow-md cursor-pointer hover:opacity-90 transition-opacity" 

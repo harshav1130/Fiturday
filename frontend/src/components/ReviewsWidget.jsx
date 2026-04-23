@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Star, MessageSquare, X, Send, Camera, ChevronDown } from 'lucide-react';
 
@@ -202,7 +202,7 @@ export default function ReviewsWidget({ targetId, targetModel }) {
                                 <div className="shrink-0">
                                     <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 flex items-center justify-center text-lg font-black text-green-500 relative shadow-inner overflow-hidden">
                                         {rev.userId?.avatar ? (
-                                            <img src={`${rev.userId.avatar}`} className="w-full h-full object-cover" />
+                                            <img src={rev.userId.avatar.startsWith('/uploads/') ? `/api${rev.userId.avatar}` : rev.userId.avatar} className="w-full h-full object-cover" />
                                         ) : (rev.userId?.name?.charAt(0) || 'U')}
                                         <div className="absolute top-0 left-0 w-full h-1 bg-green-500/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                     </div>
@@ -232,7 +232,7 @@ export default function ReviewsWidget({ targetId, targetModel }) {
                                         <div className="flex flex-wrap gap-2 mt-4">
                                             {rev.images.map((img, idx) => (
                                                 <div key={idx} className="w-24 h-24 rounded-xl overflow-hidden border border-gray-800 group-hover:border-gray-700 transition cursor-pointer">
-                                                    <img src={`${img}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="review evidence" />
+                                                    <img src={img.startsWith('/uploads/') ? `/api${img}` : img} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="review evidence" />
                                                 </div>
                                             ))}
                                         </div>

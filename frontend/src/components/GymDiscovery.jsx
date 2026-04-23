@@ -281,7 +281,11 @@ export default function GymDiscovery() {
                         >
                             <div className="h-48 mb-4 rounded-xl overflow-hidden bg-gray-900 relative flex-shrink-0">
                                 {gym.photos && gym.photos.length > 0 ? (
-                                    <img src={`${gym.photos[0]}`} alt={gym.name} className="w-full h-full object-cover" />
+                                    <img 
+                                        src={gym.photos[0].startsWith('/uploads/') ? `/api${gym.photos[0]}` : gym.photos[0]} 
+                                        alt={gym.name} 
+                                        className="w-full h-full object-cover" 
+                                    />
                                 ) : (
                                     <div className="w-full h-full flex flex-col items-center justify-center text-gray-600">
                                         <ImageIcon size={32} className="mb-2 opacity-50" />
