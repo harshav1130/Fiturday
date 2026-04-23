@@ -3,25 +3,28 @@ const Gym = require('../models/Gym');
 const createGym = async (req, res) => {
     try {
         const { name, description, address, location, amenities, pricePerMonth, pricePerYear, openTime, closeTime } = req.body;
+        console.log('[GYM CREATE] Received data:', { name, location: !!location });
 
         let photos = [];
         if (req.files) {
             photos = req.files.map(file => `/api/uploads/${file.filename}`);
         }
 
+        const parsedLocation = location ? JSON.parse(location) : null;
+        
         const gym = await Gym.create({
             name,
             ownerId: req.user._id,
             description,
             address,
-            location: {
+            location: parsedLocation ? {
                 type: 'Point',
-                coordinates: [location.lng, location.lat] // must be [lng, lat]
-            },
+                coordinates: [parsedLocation.lng, parsedLocation.lat]
+            } : undefined,
             amenities: amenities ? JSON.parse(amenities) : [],
             photos,
-            pricePerMonth,
-            pricePerYear,
+            pricePerMonth: Number(pricePerMonth),
+            pricePerYear: Number(pricePerYear),
             openTime,
             closeTime
         });
@@ -93,6 +96,8 @@ const updateGym = async (req, res) => {
         let gym = await Gym.findById(req.params.id);
         if (!gym) return res.status(404).json({ message: 'Gym not found' });
 
+        console.log('[GYM UPDATE] Request for:', req.params.id, 'User:', req.user._id);
+
         if (gym.ownerId.toString() !== req.user._id.toString() && req.user.role !== 'Admin') {
             return res.status(403).json({ message: 'Not authorized to update this gym' });
         }
@@ -130,6 +135,7 @@ const updateGym = async (req, res) => {
         gym = await Gym.findByIdAndUpdate(req.params.id, updatedData, { new: true });
         res.json(gym);
     } catch (error) {
+        console.error('[GYM UPDATE ERROR]:', error);
         res.status(500).json({ message: error.message });
     }
 }

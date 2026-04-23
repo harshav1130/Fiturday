@@ -143,8 +143,9 @@ export default function GymOverview() {
             setIsCreating(false);
             setIsEditing(false);
         } catch (err) {
-            console.error(err);
-            setError(err.response?.data?.message || 'Failed to process gym profile');
+            console.error('Gym Submission Error:', err);
+            const msg = err.response?.data?.message || err.message || 'Failed to process gym profile';
+            setError(msg);
         }
     };
 
